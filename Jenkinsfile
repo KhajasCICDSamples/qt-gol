@@ -21,4 +21,11 @@ pipeline {
             }
         }
     }
+    post {
+        always {
+            mail to: 'learningthoughts.in@gmail.com', 
+                subject: "Status of pipeline ${currentBuild.fullDisplayName}",
+                body: "${env.BUILD_URL} has result ${currentBuild.result}"
+        }
+    }
 }
