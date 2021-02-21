@@ -11,8 +11,11 @@ pipeline {
         }
         stage('build') {
             steps {
-                withSonarQubeEnv('SONAR-7.1')
-                sh script: 'mvn clean package sonar:sonar'
+                withSonarQubeEnv('SONAR-7.1') {
+                    sh script: 'mvn clean package sonar:sonar'
+
+                }
+                
             }
         }
         stage('post build') {
