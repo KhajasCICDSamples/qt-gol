@@ -18,17 +18,18 @@ pipeline {
                 
             }
         }
+        
+        stage('post build') {
+            steps {
+                junit 'gameoflife-web/target/surefire-reports/*.xml'
+                archiveArtifacts 'gameoflife-web/target/*.war'
+            }
+        }
         stage("Quality Gate") {
             steps {
               timeout(time: 1, unit: 'HOURS') {
                 waitForQualityGate abortPipeline: true
               }
-            }
-        }
-        stage('post build') {
-            steps {
-                junit 'gameoflife-web/target/surefire-reports/*.xml'
-                archiveArtifacts 'gameoflife-web/target/*.war'
             }
         }
     }
